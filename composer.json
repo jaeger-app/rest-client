@@ -1,5 +1,5 @@
 {
-    "name": "mithra62/backup-pro-rest-client",
+    "name": "mithra62/BpApiClient",
     "description": "A simple REST cient to interact with Backup Pro installations in a RESTful manner",
     "require": {
         "guzzle/guzzle": "^3.9",
@@ -19,8 +19,8 @@
         "php": ">=5.4.0"
     },
     "autoload": {
-        "psr-0": {
-            "HelloWorld": "src/"
+        "psr-4": {
+            "mithra62\\BpApiClient\\": "src/mithra62/BpApiClient/"
         }
     },
     "minimum-stability": "stable"
