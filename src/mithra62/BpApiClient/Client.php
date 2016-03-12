@@ -12,15 +12,13 @@ namespace mithra62\BpApiClient;
 
 use PhilipBrown\Signature\Token;
 use PhilipBrown\Signature\Request;
-use Nocarrier\Hal;
-use Crell\ApiProblem\ApiProblem;
 
 /**
  * Rest Client Object
  *
  * Simple object to interact with a Backup Pro installation
  *
- * @package BackupPro\View
+ * @package BackupPro\Rest
  * @author Eric Lamb <eric@mithra62.com>
  */
 class Client
@@ -132,6 +130,27 @@ class Client
     }
     
     /**
+     * Sets the Backup Pro REST API site URL 
+     * @param string $site_url
+     * @return \mithra62\BpApiClient\Client
+     */
+    public function setSiteUrl($site_url)
+    {
+        $this->site_url = $site_url;
+        return $this;
+    }
+    
+    /**
+     * Returns the Backup Pro REST API site URL
+     * @param string $endpoint
+     * @return string
+     */
+    public function getSiteUrl($endpoint = '')
+    {
+        return $this->site_url.$endpoint;
+    }
+    
+    /**
      * Send a POST request
      * @param string $endpoint The API endpoint
      * @param array $payload Data to submit
@@ -150,6 +169,7 @@ class Client
     {
         return $this->fetch($endpoint, $payload);
     }
+    
     /**
      * PUT to an authenciated API endpoint w/ payload
      *
@@ -184,8 +204,9 @@ class Client
     {
         $token   = new Token($this->getApiKey(), $this->getApiSecret());
         $request = new Request($method, $endpoint, $payload);
-        $headers = $request->sign($token);
+        $headers = $request->sign($token, 'm62_auth_');
         
+        $endpoint = $this->getSiteUrl($endpoint);
         return $this->request($endpoint, $payload, $method, $headers);
     }    
     
@@ -238,15 +259,24 @@ class Client
             $options = array_replace($options, $this->config['curl_options']);
         }
         curl_setopt_array($ch, $options);
-        $response = curl_exec($ch);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        //curl_setopt($ch, CURLOPT_HEADER, 1);
+        $response_raw = curl_exec($ch);
+        
         $this->_debug_info = curl_getinfo($ch);
-        if ($response === false) {
+        if ($response_raw === false) {
             throw new \RuntimeException('Request Error: ' . curl_error($ch));
         }
-        $response = json_decode($response, true);
+        
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $response = json_decode($response_raw, true);
         if (isset($response['status']) && ($response['status'] < 200 || $response['status'] > 300)) {
-            throw new \RuntimeException('Request Error: ' . $response['message'] . '. Raw Response: ' . print_r($response, true));
+            return ApiProblem::fromJson($response_raw);
         }
+
+
+        print_r($response);
+        exit;
         return $response;
     }
     
