@@ -233,11 +233,16 @@ class Client
     protected function request($url, array $payload = array(), $method = 'GET', array $headers = array(), array $curl_options = array())
     {
         $ch = $this->getCurlHandle();
+        $parsed_headers = array();
+        foreach($headers AS $key => $value) {
+            $parsed_headers[] = $key.': '.$value;
+        }
+        
         $options = array(
             CURLOPT_CUSTOMREQUEST => strtoupper($method),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_URL => $url,
-            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_HTTPHEADER => $parsed_headers,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_FOLLOWLOCATION => true
         );
@@ -273,11 +278,8 @@ class Client
         if (isset($response['status']) && ($response['status'] < 200 || $response['status'] > 300)) {
             return ApiProblem::fromJson($response_raw);
         }
-
-
-        print_r($response);
-        exit;
-        return $response;
+        
+        return Hal::fromJson($response_raw);
     }
     
     
