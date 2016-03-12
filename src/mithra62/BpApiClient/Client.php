@@ -12,6 +12,8 @@ namespace mithra62\BpApiClient;
 
 use PhilipBrown\Signature\Token;
 use PhilipBrown\Signature\Request;
+use Nocarrier\Hal;
+use Crell\ApiProblem\ApiProblem;
 
 /**
  * Rest Client Object
