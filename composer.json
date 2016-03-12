@@ -19,6 +19,5 @@
         "psr-4": {
             "mithra62\\BpApiClient\\": "src/mithra62/BpApiClient/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }

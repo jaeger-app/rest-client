@@ -10,6 +10,9 @@
  
 namespace mithra62\BpApiClient;
 
+use PhilipBrown\Signature\Token;
+use PhilipBrown\Signature\Request;
+
 /**
  * Rest Client Object
  *
@@ -144,6 +147,33 @@ class Client
         return $this->fetch($endpoint, $payload, self::HTTP_METHOD_PUT);
     }
     
+    public function delete($endpoint, array $payload = array())
+    {
+        return $this->fetch($endpoint, $payload, self::HTTP_METHOD_DELETE);
+    }
+    
+    /**
+     * Make an authenticated API request to the specified endpoint
+     * Headers are for additional headers to be sent along with the request.
+     * Curl options are additional curl options that may need to be set
+     *
+     * @param string $endpoint
+     * @param array $payload
+     * @param string $method
+     * @return array
+     */
+    public function fetch($endpoint, array $payload = array(), $method = 'GET')
+    {
+
+        $data    = ['name' => 'Philip Brown'];
+        $token   = new Token('abc123', 'qwerty');
+        $request = new Request('POST', 'users', $data);
+        
+        $auth = $request->sign($token);
+        
+        return $this->_makeRequest($endpoint, $payload, $method, $headers, $curl_options);
+    }    
+    
     /**
      * Get debug info from the CURL request
      *
@@ -151,8 +181,9 @@ class Client
      */
     public function getDebugInfo()
     {
-        return $this->_debug_info;
+        return $this->debug_info;
     }
+    
     /**
      * Make a CURL request
      *
@@ -189,8 +220,8 @@ class Client
         if (!empty($curl_options)) {
             $options = array_replace($options, $curl_options);
         }
-        if (isset($this->_config['curl_options']) && !empty($this->_config['curl_options'])) {
-            $options = array_replace($options, $this->_config['curl_options']);
+        if (isset($this->config['curl_options']) && !empty($this->config['curl_options'])) {
+            $options = array_replace($options, $this->config['curl_options']);
         }
         curl_setopt_array($ch, $options);
         $response = curl_exec($ch);
