@@ -1,5 +1,5 @@
 {
-    "name": "mithra62/BpApiClient",
+    "name": "backup-pro/rest-client",
     "description": "A simple REST cient to interact with Backup Pro installations in a RESTful manner",
     "require": {
         "guzzle/guzzle": "^3.9",
