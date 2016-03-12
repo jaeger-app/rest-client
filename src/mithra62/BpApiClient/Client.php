@@ -44,6 +44,12 @@ class Client
     protected $api_secret = null;
     
     /**
+     * The URL to the Backup Pro API endpoint
+     * @var string
+     */
+    protected $site_url = null;
+    
+    /**
      * The debug information
      * @var array
      */
@@ -68,8 +74,20 @@ class Client
      * Sets it up
      * @param array $config
      */
-    public function __construct(array $config)
+    public function __construct(array $config = array())
     {
+        if(isset($config['api_key'])) {
+            $this->api_key = $config['api_key'];
+        }
+        
+        if(isset($config['api_secret'])) {
+            $this->api_secret = $config['api_secret'];
+        }
+        
+        if(isset($config['site_url'])) {
+            $this->site_url = $config['site_url'];
+        }
+        
         $this->config = $config;
     }
     
