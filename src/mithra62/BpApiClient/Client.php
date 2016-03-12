@@ -14,18 +14,51 @@ namespace mithra62\BpApiClient;
  * Rest Client Object
  *
  * Simple object to interact with a Backup Pro installation
+ * 
+ * Shout out to the LinkedIn REST Api client for me stealing
+ * their design ;)
+ * 
+ * @see https://github.com/ashwinks/PHP-LinkedIn-SDK
  *
  * @package BackupPro\View
  * @author Eric Lamb <eric@mithra62.com>
  */
 class Client
 {
+    /**
+     * The configuration details for connection
+     * @var array
+     */
     protected $config = array();
+    
+    /**
+     * The API Key to use
+     * @var string
+     */
     protected $api_key = null;
+    
+    /**
+     * The API Secret to use
+     * @var string
+     */
     protected $api_secret = null;
-    protected $debug_info = null;
+    
+    /**
+     * The debug information
+     * @var array
+     */
+    protected $debug_info = array();
+    
+    /**
+     * The Curl handle
+     * @var resource
+     */
     protected $curl = null;
     
+    /**
+     * The HTTP verb names
+     * @var string
+     */
     const HTTP_METHOD_GET = 'GET';
     const HTTP_METHOD_POST = 'POST';
     const HTTP_METHOD_PUT = 'PUT';
@@ -37,26 +70,63 @@ class Client
      */
     public function __construct(array $config)
     {
-        $this->_config = $config;
+        $this->config = $config;
     }
     
     /**
-     * POST to an authenciated API endpoint w/ payload
-     *
-     * @param string $endpoint
-     * @param array $payload
-     * @return array
+     * Sets the API key to use for authentication
+     * @param string $key
+     * @return \mithra62\BpApiClient\Client
+     */
+    public function setApiKey($key)
+    {
+        $this->api_key = $key;
+        return $this;
+    }
+    
+    /**
+     * Returns the API key 
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->api_key;
+    }
+    
+    /**
+     * Sets the API secret to use for authentication
+     * @param string $secret
+     * @return \mithra62\BpApiClient\Client
+     */
+    public function setApiSecret($secret)
+    {
+        $this->api_secret = $secret;
+        return $this;
+    }
+    
+    /**
+     * Returns the API secret
+     * @return string
+     */
+    public function getApiSecret()
+    {
+        return $this->api_secret;
+    }
+    
+    /**
+     * Send a POST request
+     * @param string $endpoint The API endpoint
+     * @param array $payload Data to submit
      */
     public function post($endpoint, array $payload = array())
     {
         return $this->fetch($endpoint, $payload, self::HTTP_METHOD_POST);
     }
+    
     /**
-     * GET an authenticated API endpoind w/ payload
-     *
-     * @param string $endpoint
+     * Sends a GET request
+     * @param string $endpoint The API endpoint
      * @param array $payload
-     * @return array
      */
     public function get($endpoint, array $payload = array())
     {
@@ -96,7 +166,7 @@ class Client
      */
     protected function _makeRequest($url, array $payload = array(), $method = 'GET', array $headers = array(), array $curl_options = array())
     {
-        $ch = $this->_getCurlHandle();
+        $ch = $this->getCurlHandle();
         $options = array(
             CURLOPT_CUSTOMREQUEST => strtoupper($method),
             CURLOPT_RETURNTRANSFER => true,
@@ -134,17 +204,20 @@ class Client
         }
         return $response;
     }
-    protected function _getCurlHandle()
+    
+    
+    protected function getCurlHandle()
     {
-        if (!$this->_curl_handle) {
-            $this->_curl_handle = curl_init();
+        if (!$this->curl_handle) {
+            $this->curl_handle = curl_init();
         }
-        return $this->_curl_handle;
+        return $this->curl_handle;
     }
+    
     public function __destruct()
     {
-        if ($this->_curl_handle) {
-            curl_close($this->_curl_handle);
+        if ($this->curl_handle) {
+            curl_close($this->curl_handle);
         }
     }
 }
