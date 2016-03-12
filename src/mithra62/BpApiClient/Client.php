@@ -17,11 +17,6 @@ use PhilipBrown\Signature\Request;
  * Rest Client Object
  *
  * Simple object to interact with a Backup Pro installation
- * 
- * Shout out to the LinkedIn REST Api client for me stealing
- * their design ;)
- * 
- * @see https://github.com/ashwinks/PHP-LinkedIn-SDK
  *
  * @package BackupPro\View
  * @author Eric Lamb <eric@mithra62.com>
@@ -147,20 +142,23 @@ class Client
         return $this->fetch($endpoint, $payload, self::HTTP_METHOD_PUT);
     }
     
+    /**
+     * Performs a DELETE request
+     * @param string $endpoint
+     * @param array $payload
+     * @return bool
+     */
     public function delete($endpoint, array $payload = array())
     {
         return $this->fetch($endpoint, $payload, self::HTTP_METHOD_DELETE);
     }
     
     /**
-     * Make an authenticated API request to the specified endpoint
-     * Headers are for additional headers to be sent along with the request.
-     * Curl options are additional curl options that may need to be set
-     *
-     * @param string $endpoint
-     * @param array $payload
-     * @param string $method
-     * @return array
+     * Sets up the Hmac authentication headers and dispatches the request
+     * @param string $endpoint The API endpoing we want
+     * @param array $payload Any data to send along
+     * @param string $method The HTTP method 
+     * @return bool
      */
     public function fetch($endpoint, array $payload = array(), $method = 'GET')
     {
@@ -168,12 +166,11 @@ class Client
         $request = new Request($method, $endpoint, $payload);
         $headers = $request->sign($token);
         
-        return $this->_makeRequest($endpoint, $payload, $method, $headers);
+        return $this->request($endpoint, $payload, $method, $headers);
     }    
     
     /**
-     * Get debug info from the CURL request
-     *
+     * Returns the debug data
      * @return array
      */
     public function getDebugInfo()
@@ -192,7 +189,7 @@ class Client
      * @throws \RuntimeException
      * @return array
      */
-    protected function _makeRequest($url, array $payload = array(), $method = 'GET', array $headers = array(), array $curl_options = array())
+    protected function request($url, array $payload = array(), $method = 'GET', array $headers = array(), array $curl_options = array())
     {
         $ch = $this->getCurlHandle();
         $options = array(
