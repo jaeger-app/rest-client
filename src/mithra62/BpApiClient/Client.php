@@ -164,14 +164,11 @@ class Client
      */
     public function fetch($endpoint, array $payload = array(), $method = 'GET')
     {
-
-        $data    = ['name' => 'Philip Brown'];
-        $token   = new Token('abc123', 'qwerty');
-        $request = new Request('POST', 'users', $data);
+        $token   = new Token($this->getApiKey(), $this->getApiSecret());
+        $request = new Request($method, $endpoint, $payload);
+        $headers = $request->sign($token);
         
-        $auth = $request->sign($token);
-        
-        return $this->_makeRequest($endpoint, $payload, $method, $headers, $curl_options);
+        return $this->_makeRequest($endpoint, $payload, $method, $headers);
     }    
     
     /**
