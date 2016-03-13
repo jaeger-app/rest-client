@@ -248,14 +248,13 @@ class Client
         );
         if (!empty($payload)) {
             if ($options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_POST || $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_PUT) {
-                $options[CURLOPT_POST] = true;
-                $options[CURLOPT_POSTFIELDS] = json_encode($payload);
-                $headers[] = 'Content-Length: ' . strlen($options[CURLOPT_POSTFIELDS]);
-                $headers[] = 'Content-Type: application/json';
-                $options[CURLOPT_HTTPHEADER] = $headers;
-            } else {
-                $options[CURLOPT_URL] .= '&' . http_build_query($payload, '&');
-            }
+                $json_payload = json_encode($payload);
+                //$options[CURLOPT_POST] = true;
+                $options[CURLOPT_POSTFIELDS] = $json_payload;
+                $parsed_headers[] = 'Content-Length: ' . strlen($json_payload);
+                $parsed_headers[] = 'Content-Type: application/json';
+                $options[CURLOPT_HTTPHEADER] = $parsed_headers;
+            } 
         }
         if (!empty($curl_options)) {
             $options = array_replace($options, $curl_options);
@@ -263,12 +262,12 @@ class Client
         if (isset($this->config['curl_options']) && !empty($this->config['curl_options'])) {
             $options = array_replace($options, $this->config['curl_options']);
         }
-        curl_setopt_array($ch, $options);
-        curl_setopt($ch, CURLOPT_VERBOSE, 1);
-        //curl_setopt($ch, CURLOPT_HEADER, 1);
-        $response_raw = curl_exec($ch);
         
+        curl_setopt_array($ch, $options);
+        $response_raw = curl_exec($ch);
         $this->_debug_info = curl_getinfo($ch);
+
+        //print_R($options);
         if ($response_raw === false) {
             throw new \RuntimeException('Request Error: ' . curl_error($ch));
         }
@@ -278,6 +277,7 @@ class Client
         if (isset($response['status']) && ($response['status'] < 200 || $response['status'] > 300)) {
             return ApiProblem::fromJson($response_raw);
         }
+
         
         return Hal::fromJson($response_raw);
     }
