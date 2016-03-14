@@ -69,8 +69,41 @@ $backups = $client->setApiKey($api_key)
 
 if($result instanceof Hal) 
 {
-
-	
+    $data = $result->getData();
+    $resources = $result->getResources();
 }
+
+```
+
+## Methods
+
+Since Backup Pro follows the [Richardson Maturity Model](Richardson Maturity Model) there are helper methods available for each HTTP verb. Below are some simple usecase examples and their implementations
+
+### Take a Backup
+
+```php
+use \mithra62\BpApiClient\Client;
+use \mithra62\BpApiClient\Hal;
+
+$client = new Client();
+$backups = $client->setApiKey($api_key)
+                 ->setApiSecret($api_secret)
+                 ->setSiteUrl($api_endpoint_url)
+                 ->post('/backups');
+
+```
+
+### Update Settings
+
+```php
+use \mithra62\BpApiClient\Client;
+use \mithra62\BpApiClient\Hal;
+
+$client = new Client();
+$settings = array('working_directory' => '/path/to/working_directory');
+$backups = $client->setApiKey($api_key)
+                 ->setApiSecret($api_secret)
+                 ->setSiteUrl($api_endpoint_url)
+                 ->post('/settings', $settings);
 
 ```
