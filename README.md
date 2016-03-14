@@ -75,7 +75,7 @@ if($result instanceof Hal)
 
 ```
 
-## Methods
+## Examples
 
 Since Backup Pro follows the [Richardson Maturity Model](Richardson Maturity Model) there are helper methods available for each HTTP verb. Below are some simple usecase examples and their implementations
 
