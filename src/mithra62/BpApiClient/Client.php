@@ -279,7 +279,7 @@ class Client
         }
 
         
-        return Hal::fromJson($response_raw);
+        return Hal::fromJson($response_raw, 3);
     }
     
     
