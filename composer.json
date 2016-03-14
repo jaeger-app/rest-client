@@ -5,7 +5,8 @@
         "philipbrown/signature-php": "^5.1",
         "nocarrier/hal": "^0.9.12",
         "crell/api-problem": "^1.7",
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "lib-curl": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*"
