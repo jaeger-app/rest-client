@@ -1,6 +1,6 @@
 # Backup Pro REST Client
 
-A simple REST cient to interact with Backup Pro installations
+A simple REST cient to interact with Backup Pro installations.
 
 ## Installation
 Add `backup-pro/rest-client` as a requirement to `composer.json`:
@@ -22,10 +22,9 @@ $backups = $client->setApiKey($api_key)
                  ->get('/backups');
 
 ```
-
 ## Authentication
 
-Backup Pro uses HMAC-SHA authentication which is a simple key / secret paradigm to create hashed signatures. You can get/set your api key and secret from your individual Backup Pro installations. 
+Backup Pro uses HMAC-SHA authentication which is a simple key / secret paradigm to create hashed signatures. You can get/set your api key and secret, as well as the API URL endpoint, from your individual Backup Pro installations. 
 
 ## Error Handling
 
@@ -33,6 +32,7 @@ If anything goes wrong with a request the library will return an [ApiProblem](ht
 
 ```php
 use \mithra62\BpApiClient\Client;
+use \mithra62\BpApiClient\ApiProblem;
 
 $client = new Client();
 $backups = $client->setApiKey($api_key)
@@ -48,6 +48,28 @@ if($result instanceof ApiProblem)
 
 	$result->getTitle() //API problem response title
 	$result->getDetail() //API problem response details
+	
+}
+
+```
+
+## Hal Responses
+
+For all successful responses from the Backup Pro API, the library will return an instance of `\mithra62\BpApiClient\Hal` object which is a wrapper for [\Nocarrier\Hal](https://github.com/blongden/hal). 
+
+```php
+use \mithra62\BpApiClient\Client;
+use \mithra62\BpApiClient\Hal;
+
+$client = new Client();
+$backups = $client->setApiKey($api_key)
+                 ->setApiSecret($api_secret)
+                 ->setSiteUrl($api_endpoint_url)
+                 ->get('/backups');
+
+if($result instanceof Hal) 
+{
+
 	
 }
 
