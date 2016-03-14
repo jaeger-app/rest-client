@@ -83,7 +83,6 @@ Since Backup Pro follows the [Richardson Maturity Model](Richardson Maturity Mod
 
 ```php
 use \mithra62\BpApiClient\Client;
-use \mithra62\BpApiClient\Hal;
 
 $client = new Client();
 $backups = $client->setApiKey($api_key)
@@ -97,13 +96,38 @@ $backups = $client->setApiKey($api_key)
 
 ```php
 use \mithra62\BpApiClient\Client;
-use \mithra62\BpApiClient\Hal;
 
 $client = new Client();
 $settings = array('working_directory' => '/path/to/working_directory');
-$backups = $client->setApiKey($api_key)
+$update = $client->setApiKey($api_key)
                  ->setApiSecret($api_secret)
                  ->setSiteUrl($api_endpoint_url)
-                 ->post('/settings', $settings);
+                 ->put('/settings', $settings);
+
+```
+
+### Get Settings
+
+```php
+use \mithra62\BpApiClient\Client;
+
+$client = new Client();
+$settings = $client->setApiKey($api_key)
+                 ->setApiSecret($api_secret)
+                 ->setSiteUrl($api_endpoint_url)
+                 ->get('/settings');
+
+```
+
+### Get Storage Locations
+
+```php
+use \mithra62\BpApiClient\Client;
+
+$client = new Client();
+$storage_locations = $client->setApiKey($api_key)
+                 ->setApiSecret($api_secret)
+                 ->setSiteUrl($api_endpoint_url)
+                 ->get('/storage');
 
 ```
