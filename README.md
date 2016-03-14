@@ -14,6 +14,8 @@ $ composer require backup-pro/rest-client
 
 ```php
 <?php
+use \mithra62\BpApiClient\Client;
+
 $client = new Client();
 $backups = $client->setApiKey($api_key)
                  ->setApiSecret($api_secret)
@@ -25,4 +27,8 @@ $backups = $client->setApiKey($api_key)
 ## Authentication
 
 Backup Pro uses HMAC-SHA authentication which is a simple key / secret paradigm to create hashed signatures. You can get/set your api key and secret from your individual Backup Pro installations. 
+
+
+
+
 
