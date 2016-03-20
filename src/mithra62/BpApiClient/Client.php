@@ -145,8 +145,12 @@ class Client
      * @param string $endpoint
      * @return string
      */
-    public function getSiteUrl($endpoint = '')
+    public function getSiteUrl($endpoint = '', array $query = array())
     {
+        if($query && count($query) != '0') {
+            $endpoint .= '&'.http_build_query($query);
+        }
+        
         return $this->site_url.$endpoint;
     }
     
@@ -202,11 +206,24 @@ class Client
      */
     public function fetch($endpoint, array $payload = array(), $method = 'GET')
     {
+        //so we don't want to use the query params for HMAC since we won't know what's 
+        //being sent versus what's expected to be sent. So we remove them and prepare for 
+        //query usage
+        $query = array();
+        if(strtolower($method)== 'get') {
+            $query = $payload;
+            $payload = array();
+        }
+        
         $token   = new Token($this->getApiKey(), $this->getApiSecret());
         $request = new Request($method, $endpoint, $payload);
         $headers = $request->sign($token, 'm62_auth_');
         
-        $endpoint = $this->getSiteUrl($endpoint);
+        if(strtolower($method)== 'get') {
+            $payload = array();
+        }
+        
+        $endpoint = $this->getSiteUrl($endpoint, $query);
         return $this->request($endpoint, $payload, $method, $headers);
     }    
     
@@ -277,7 +294,6 @@ class Client
         if (isset($response['status']) && ($response['status'] < 200 || $response['status'] > 300)) {
             return ApiProblem::fromJson($response_raw);
         }
-
         
         return Hal::fromJson($response_raw, 3);
     }
