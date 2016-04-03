@@ -264,7 +264,7 @@ class Client
             CURLOPT_FOLLOWLOCATION => true
         );
         if (!empty($payload)) {
-            if ($options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_POST || $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_PUT) {
+            if ($options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_POST || $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_PUT || $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_DELETE) {
                 $json_payload = json_encode($payload);
                 //$options[CURLOPT_POST] = true;
                 $options[CURLOPT_POSTFIELDS] = $json_payload;
