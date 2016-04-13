@@ -1,21 +1,21 @@
 <?php
 /**
- * Backup Pro - REST Client
+ * Jaeger - REST Client
  *
  * @copyright	Copyright (c) 2016, mithra62, Eric Lamb.
- * @link		http://backup-pro.com/
+ * @link		http://jaegerapp.net/
  * @version		1.0
- * @filesource 	./mithra62/BpApiClient/ApiProblem.php
+ * @filesource 	./jaeger-app/Rest/ApiProblem.php
  */
  
-namespace mithra62\BpApiClient;
+namespace JaegerApp\Rest;
 
 /**
  * ApiProblem Object
  *
  * Abstraction for handling ApiProblem output
  *
- * @package BackupPro\Rest
+ * @package Rest\Client
  * @author Eric Lamb <eric@mithra62.com>
  */
 class ApiProblem extends \Crell\ApiProblem\ApiProblem

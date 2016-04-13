@@ -92,7 +92,7 @@ class Client
     /**
      * Sets the API key to use for authentication
      * @param string $key
-     * @return \mithra62\BpApiClient\Client
+     * @return \JargerApp\Rest\Client
      */
     public function setApiKey($key)
     {
@@ -112,7 +112,7 @@ class Client
     /**
      * Sets the API secret to use for authentication
      * @param string $secret
-     * @return \mithra62\BpApiClient\Client
+     * @return \JargerApp\Rest\Client
      */
     public function setApiSecret($secret)
     {
@@ -132,7 +132,7 @@ class Client
     /**
      * Sets the Backup Pro REST API site URL 
      * @param string $site_url
-     * @return \mithra62\BpApiClient\Client
+     * @return \JargerApp\Rest\Client
      */
     public function setSiteUrl($site_url)
     {
