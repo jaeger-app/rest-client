@@ -8,7 +8,7 @@
  * @filesource 	./jaeger-app/Rest/ApiProblem.php
  */
  
-namespace JaegerApp\Rest;
+namespace JaegerApp\Rest\Client;
 
 /**
  * ApiProblem Object

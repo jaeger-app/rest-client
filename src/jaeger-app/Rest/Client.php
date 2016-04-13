@@ -294,10 +294,10 @@ class Client
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $response = json_decode($response_raw, true);
         if (isset($response['status']) && ($response['status'] < 200 || $response['status'] > 300)) {
-            return ApiProblem::fromJson($response_raw);
+            return Client\ApiProblem::fromJson($response_raw); 
         }
         
-        return Hal::fromJson($response_raw, 3);
+        return Client\Hal::fromJson($response_raw, 3);
     }
     
     

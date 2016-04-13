@@ -8,7 +8,7 @@
  * @filesource 	./jaeger-app/Rest/Hal.php
  */
  
-namespace JaegerApp\Rest;
+namespace JaegerApp\Rest\Client;
 
 /**
  * Hal Object
