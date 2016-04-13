@@ -1,6 +1,6 @@
 {
-    "name": "backup-pro/rest-client",
-    "description": "A simple REST cient to interact with Backup Pro installations in a RESTful manner",
+    "name": "jaeger-app/rest-client",
+    "description": "A simple REST cient to interact with Jaeger based installations in a RESTful manner",
     "require": {
         "philipbrown/signature-php": "^5.1",
         "nocarrier/hal": "^0.9.12",
@@ -20,7 +20,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "mithra62\\BpApiClient\\": "src/mithra62/BpApiClient/"
+            "JaegerApp\\Rest\\Client": "src/jaegert-app/Rest/Client.php"
         }
     }
 }

@@ -1,14 +1,14 @@
 <?php
 /**
- * Backup Pro - REST Client
+ * Jaeger - REST Client
  *
  * @copyright	Copyright (c) 2016, mithra62, Eric Lamb.
- * @link		http://backup-pro.com/
+ * @link		http://jaegerapp.net/
  * @version		1.0
- * @filesource 	./mithra62/BpApiClient/Client.php
+ * @filesource 	./jaeger-app/Rest/Client.php
  */
  
-namespace mithra62\BpApiClient;
+namespace JaegerApp\Rest;
 
 use PhilipBrown\Signature\Token;
 use PhilipBrown\Signature\Request;
@@ -16,9 +16,9 @@ use PhilipBrown\Signature\Request;
 /**
  * Rest Client Object
  *
- * Simple object to interact with a Backup Pro installation
+ * Simple object to interact with a Jaeger installation
  *
- * @package BackupPro\Rest
+ * @package Rest\Client
  * @author Eric Lamb <eric@mithra62.com>
  */
 class Client
@@ -264,7 +264,9 @@ class Client
             CURLOPT_FOLLOWLOCATION => true
         );
         if (!empty($payload)) {
-            if ($options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_POST || $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_PUT || $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_DELETE) {
+            if ($options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_POST || 
+                $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_PUT || 
+                $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_DELETE) {
                 $json_payload = json_encode($payload);
                 //$options[CURLOPT_POST] = true;
                 $options[CURLOPT_POSTFIELDS] = $json_payload;
