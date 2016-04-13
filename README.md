@@ -1,19 +1,19 @@
-# Backup Pro REST Client
+# Jaeger REST Client
 
-A simple REST cient to interact with Backup Pro installations.
+A simple REST cient to interact with Jaeger REST API installations.
 
 ## Installation
-Add `backup-pro/rest-client` as a requirement to `composer.json`:
+Add `jaeger-app/rest-client` as a requirement to `composer.json`:
 
 ```bash
-$ composer require backup-pro/rest-client
+$ composer require jaeger-app/rest-client
 ```
 
 ## Simple Example
 
 
 ```php
-use \mithra62\BpApiClient\Client;
+use \JaegerApp\Rest\Client;
 
 $client = new Client();
 $backups = $client->setApiKey($api_key)
@@ -31,8 +31,8 @@ Backup Pro uses HMAC-SHA authentication which is a simple key / secret paradigm 
 If anything goes wrong with a request the library will return an [ApiProblem](http://tools.ietf.org/html/draft-nottingham-http-problem-07 "ApiProblem") object. Here's an example:
 
 ```php
-use \mithra62\BpApiClient\Client;
-use \mithra62\BpApiClient\ApiProblem;
+use \JaegerApp\Rest\Client;
+use \JaegerApp\Rest\ApiProblem;
 
 $client = new Client();
 $backups = $client->setApiKey($api_key)
@@ -58,8 +58,8 @@ if($result instanceof ApiProblem)
 For all successful responses from the Backup Pro API, the library will return an instance of `\mithra62\BpApiClient\Hal` object which is a wrapper for [\Nocarrier\Hal](https://github.com/blongden/hal). 
 
 ```php
-use \mithra62\BpApiClient\Client;
-use \mithra62\BpApiClient\Hal;
+use \JaegerApp\Rest\Client;
+use \JaegerApp\Rest\Hal;
 
 $client = new Client();
 $backups = $client->setApiKey($api_key)
@@ -82,7 +82,7 @@ Since Backup Pro follows the [Richardson Maturity Model](Richardson Maturity Mod
 ### Take a Backup
 
 ```php
-use \mithra62\BpApiClient\Client;
+use \JaegerApp\Rest\Client;
 
 $client = new Client();
 $backups = $client->setApiKey($api_key)
@@ -95,7 +95,7 @@ $backups = $client->setApiKey($api_key)
 ### Update Settings
 
 ```php
-use \mithra62\BpApiClient\Client;
+use \JaegerApp\Rest\Client;
 
 $client = new Client();
 $settings = array('working_directory' => '/path/to/working_directory');
@@ -122,7 +122,7 @@ $settings = $client->setApiKey($api_key)
 ### Get Storage Locations
 
 ```php
-use \mithra62\BpApiClient\Client;
+use \JaegerApp\Rest\Client;
 
 $client = new Client();
 $storage_locations = $client->setApiKey($api_key)

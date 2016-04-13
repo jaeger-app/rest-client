@@ -3,19 +3,19 @@
  * Backup Pro - REST Client
  *
  * @copyright	Copyright (c) 2016, mithra62, Eric Lamb.
- * @link		http://backup-pro.com/
+ * @link		http://jaegerapp.net/
  * @version		1.0
- * @filesource 	./mithra62/BpApiClient/Hal.php
+ * @filesource 	./jaeger-app/Rest/Hal.php
  */
  
-namespace mithra62\BpApiClient;
+namespace JaegerApp\Rest;
 
 /**
  * Hal Object
  *
  * Abstraction for handling Hal output
  *
- * @package BackupPro\Rest
+ * @package Rest\Client
  * @author Eric Lamb <eric@mithra62.com>
  */
 class Hal extends \Nocarrier\Hal
