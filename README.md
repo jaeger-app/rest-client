@@ -24,7 +24,7 @@ $backups = $client->setApiKey($api_key)
 ```
 ## Authentication
 
-Backup Pro uses HMAC-SHA authentication which is a simple key / secret paradigm to create hashed signatures. You can get/set your api key and secret, as well as the API URL endpoint, from your individual Backup Pro installations. 
+Jaeger uses HMAC-SHA authentication which is a simple key / secret paradigm to create hashed signatures. You can get/set your api key and secret, as well as the API URL endpoint, from your individual Jaeger installations. 
 
 ## Error Handling
 
@@ -55,7 +55,7 @@ if($result instanceof ApiProblem)
 
 ## Hal Responses
 
-For all successful responses from the Backup Pro API, the library will return an instance of `\mithra62\BpApiClient\Hal` object which is a wrapper for [\Nocarrier\Hal](https://github.com/blongden/hal). 
+For all successful responses from the Jaeger API, the library will return an instance of `\JaegerApp\Rest\Client\Hal` object which is a wrapper for [\Nocarrier\Hal](https://github.com/blongden/hal). 
 
 ```php
 use \JaegerApp\Rest\Client;
@@ -77,7 +77,7 @@ if($result instanceof Hal)
 
 ## Examples
 
-Since Backup Pro follows the [Richardson Maturity Model](Richardson Maturity Model) there are helper methods available for each HTTP verb. Below are some simple usecase examples and their implementations
+Since Jaeger follows the [Richardson Maturity Model](Richardson Maturity Model) there are helper methods available for each HTTP verb. Below are some simple use case examples and their implementations
 
 ### Take a Backup
 
@@ -109,7 +109,7 @@ $update = $client->setApiKey($api_key)
 ### Get Settings
 
 ```php
-use \mithra62\BpApiClient\Client;
+use \JaegerApp\Rest\Client;
 
 $client = new Client();
 $settings = $client->setApiKey($api_key)
