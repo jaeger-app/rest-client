@@ -49,7 +49,7 @@ class Client
     
     /**
      * The debug information
-     * @var array
+     * @var string
      */
     protected $debug_info = array();
     
@@ -290,7 +290,7 @@ class Client
             throw new \RuntimeException('Request Error: ' . curl_error($ch));
         }
         
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $response = json_decode($response_raw, true);
         if (isset($response['status']) && ($response['status'] < 200 || $response['status'] > 300)) {
             return Client\ApiProblem::fromJson($response_raw); 
