@@ -41,10 +41,10 @@ use \JaegerApp\Rest\Client;
 use \JaegerApp\Rest\ApiProblem;
 
 $client = new Client();
-$backups = $client->setApiKey($api_key)
+$result = $client->setApiKey($api_key)
                  ->setApiSecret($api_secret)
                  ->setSiteUrl($api_endpoint_url)
-                 ->get('/backups');
+                 ->get('/myendpoint');
 
 if($result instanceof ApiProblem) 
 {
@@ -68,10 +68,10 @@ use \JaegerApp\Rest\Client;
 use \JaegerApp\Rest\Hal;
 
 $client = new Client();
-$backups = $client->setApiKey($api_key)
+$result = $client->setApiKey($api_key)
                  ->setApiSecret($api_secret)
                  ->setSiteUrl($api_endpoint_url)
-                 ->get('/backups');
+                 ->get('/myendpoint');
 
 if($result instanceof Hal) 
 {
@@ -91,10 +91,10 @@ Since Jaeger follows the [Richardson Maturity Model](Richardson Maturity Model) 
 use \JaegerApp\Rest\Client;
 
 $client = new Client();
-$backups = $client->setApiKey($api_key)
+$result = $client->setApiKey($api_key)
                  ->setApiSecret($api_secret)
                  ->setSiteUrl($api_endpoint_url)
-                 ->post('/backups');
+                 ->post('/myendpoint');
 
 ```
 

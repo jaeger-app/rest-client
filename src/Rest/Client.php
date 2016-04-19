@@ -2,7 +2,7 @@
 /**
  * Jaeger - REST Client
  *
- * @copyright	Copyright (c) 2016, mithra62, Eric Lamb.
+ * @copyright	Copyright (c) 2016, mithra62
  * @link		http://jaegerapp.net/
  * @version		1.0
  * @filesource 	./jaeger-app/Rest/Client.php
