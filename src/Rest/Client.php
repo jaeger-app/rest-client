@@ -30,6 +30,16 @@ class Client
     protected $config = array();
     
     /**
+     * The expected format for the config array
+     * @var array
+     */
+    protected $config_prototype = array(
+        'api_key' => '',
+        'api_secret' => '',
+        'site_url' => '',
+    );
+    
+    /**
      * The API Key to use
      * @var string
      */
@@ -74,19 +84,10 @@ class Client
      */
     public function __construct(array $config = array())
     {
-        if(isset($config['api_key'])) {
-            $this->api_key = $config['api_key'];
-        }
-        
-        if(isset($config['api_secret'])) {
-            $this->api_secret = $config['api_secret'];
-        }
-        
-        if(isset($config['site_url'])) {
-            $this->site_url = $config['site_url'];
-        }
-        
-        $this->config = $config;
+        $this->config = array_merge($this->config_prototype, $config);
+        $this->api_key = $this->config['api_key'];
+        $this->api_secret = $this->config['api_secret'];
+        $this->site_url = $this->config['site_url'];
     }
     
     /**
