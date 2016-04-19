@@ -1,6 +1,6 @@
 {
     "name": "jaeger-app/rest-client",
-    "description": "A simple REST cient to interact with Jaeger based installations in a RESTful manner",
+    "description": "A simple REST client to interact with Jaeger based installations in a RESTful manner",
     "require": {
         "philipbrown/signature-php": "^5.1",
         "nocarrier/hal": "^0.9.12",

@@ -6,7 +6,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jaeger-app/bootstrap/master/LICENSE) 
 
 
-A simple REST cient to interact with Jaeger REST API installations.
+A simple REST client to interact with Jaeger REST API installations.
 
 ## Installation
 Add `jaeger-app/rest-client` as a requirement to `composer.json`:
