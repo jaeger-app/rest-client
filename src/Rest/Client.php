@@ -57,7 +57,7 @@ class Client
      * The Curl handle
      * @var resource
      */
-    protected $curl = null;
+    protected $curl_handle = null;
     
     /**
      * The HTTP verb names
