@@ -147,7 +147,7 @@ class Client
      */
     public function getSiteUrl($endpoint = '', array $query = array())
     {
-        if($query && count($query) != '0') {
+        if(count($query) != '0') {
             $endpoint .= '&'.http_build_query($query);
         }
         
@@ -268,7 +268,7 @@ class Client
                 $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_PUT || 
                 $options[CURLOPT_CUSTOMREQUEST] == self::HTTP_METHOD_DELETE) {
                 $json_payload = json_encode($payload);
-                //$options[CURLOPT_POST] = true;
+                
                 $options[CURLOPT_POSTFIELDS] = $json_payload;
                 $parsed_headers[] = 'Content-Length: ' . strlen($json_payload);
                 $parsed_headers[] = 'Content-Type: application/json';
@@ -284,9 +284,8 @@ class Client
         
         curl_setopt_array($ch, $options);
         $response_raw = curl_exec($ch);
-        $this->_debug_info = curl_getinfo($ch);
+        $this->debug_info = curl_getinfo($ch);
 
-        //print_R($options);
         if ($response_raw === false) {
             throw new \RuntimeException('Request Error: ' . curl_error($ch));
         }
