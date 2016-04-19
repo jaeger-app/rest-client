@@ -20,7 +20,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "JaegerApp\\Rest\\Client\\": "src/Rest/Client.php"
+            "JaegerApp\\": "src"
         }
     }
 }
