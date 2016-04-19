@@ -90,6 +90,15 @@ class Client
     }
     
     /**
+     * Returns the config
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+    
+    /**
      * Sets the API key to use for authentication
      * @param string $key
      * @return \JargerApp\Rest\Client
