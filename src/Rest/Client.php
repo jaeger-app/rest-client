@@ -306,6 +306,11 @@ class Client
             return Client\ApiProblem::fromJson($response_raw); 
         }
         
+        if(!empty($this->debug_info['http_code']) && $this->debug_info['http_code'] == '404') {
+            $response_raw = array('status' => $this->debug_info['http_code'], 'title' => 'Not Found');
+            return Client\ApiProblem::fromJson(json_encode($response_raw));
+        }
+        
         return Client\Hal::fromJson($response_raw, 3);
     }
     
